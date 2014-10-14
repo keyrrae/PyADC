@@ -24,10 +24,12 @@ class FlashADC:
                 if Vin >= self.Vtag[i] and Vin < self.Vtag[i + 1]:
                     return i
 
+
 class CDAC:
-    def __init__(self, Cunit, ):
+    def __init__(self, Cunit):
+        return
 
 
 class RDAC:
-    def __init__(self, Runit, ):
-
+    def __init__(self, Runit):
+        return
