@@ -1,17 +1,20 @@
 import random
 
 
-class FlashADC:
-    def __init__(self, Vref, SigmaVos, NumBit):
+class ADC:
+    def __init__(self, Vref, NumBit):
         self.NumBit = NumBit
         self.NumBinLevel = 2 ** NumBit
         self.Vref = Vref
+
+
+class IdealADC(ADC):
+    def __init__(self, Vref, NumBit):
+        ADC.__init__(self, Vref, NumBit)
         self.Vtag = []
         for i in xrange(self.NumBinLevel):
-            Vos = random.gauss(0, SigmaVos)
             TagNom = i * Vref / self.NumBinLevel
-            TagVal = TagNom + Vos
-            self.Vtag.append(TagVal)
+            self.Vtag.append(TagNom)
         self.Vtag.append(Vref)
 
     def convert(self, Vin):
@@ -25,6 +28,18 @@ class FlashADC:
                     return i
 
 
+class FlashADC:
+    def __init__(self, Vref, SigmaVos, NumBit):
+        ADC.__init__(self, Vref, NumBit)
+        self.Vtag = []
+        for i in xrange(self.NumBinLevel):
+            Vos = random.gauss(0, SigmaVos)
+            TagNom = i * Vref / self.NumBinLevel
+            TagVal = TagNom + Vos
+            self.Vtag.append(TagVal)
+        self.Vtag.append(Vref)
+
+
 class CDAC:
     def __init__(self, Cunit):
         return
@@ -33,3 +48,15 @@ class CDAC:
 class RDAC:
     def __init__(self, Runit):
         return
+
+
+class SineGenerator:
+    def __init__(self, Amp, Freq, Phase):
+        self.Amp = Amp
+        self.Freq = Freq
+        self.Phase = Phase
+    def Vgen(Time):
+        #    def SineGen(self, NumPt, NumBit, FreqSin, PercntFS):
+#        SineValues = []
+#        for i in xrange()
+#        return SineValues
